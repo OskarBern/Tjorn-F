@@ -41,6 +41,13 @@ header {
     padding: 15px 0; /* Adjusted padding moved here from inline */
 }
 
+/* FIX 1: Ensure header layout is side-by-side on desktop */
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 /* Logo Text Styling */
 .logo-text {
     text-decoration: none;
@@ -52,6 +59,8 @@ header {
     background-color: #b71c1c;
     padding: 5px 10px;
     border: 1px solid #b71c1c;
+    /* FIX 2: Added margin to separate logo from links */
+    margin-right: 20px; 
 }
 
 nav a {
@@ -99,6 +108,7 @@ nav a:hover {
 
 /* --- HERO SECTION --- */
 .hero-section {
+    min-height: 70vh; /* Restore height on desktop */
     padding: 150px 20px;
     text-align: center;
     background-size: cover;
@@ -252,7 +262,7 @@ footer a {
 }
 
 .product-detail-page .thumbnail-row {
-    display: flex; 
+    display: flex;
     gap: 15px; 
     margin-top: 15px;
 }
@@ -462,7 +472,7 @@ footer a {
         height: 70px;
     }
 
-    /* Table on Rigging Guide */
+    /* Table on Rigging Guide (Responsive Table) */
     .rigging-table, .rigging-table thead, .rigging-table tbody, .rigging-table th, .rigging-table td, .rigging-table tr {
         display: block;
     }
