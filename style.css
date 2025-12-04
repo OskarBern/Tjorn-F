@@ -38,10 +38,9 @@ p, ul, li {
 header {
     background-color: #1a1a1a;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    padding: 15px 0; /* Adjusted padding moved here from inline */
+    padding: 15px 0;
 }
 
-/* FIX 1: Ensure header layout is side-by-side on desktop */
 header .container {
     display: flex;
     justify-content: space-between;
@@ -59,8 +58,13 @@ header .container {
     background-color: #b71c1c;
     padding: 5px 10px;
     border: 1px solid #b71c1c;
-    /* FIX 2: Added margin to separate logo from links */
+    /* FIX: Added margin to separate logo from links */
     margin-right: 20px; 
+}
+
+/* Hide Hamburger Menu on Desktop */
+.hamburger-menu {
+    display: none;
 }
 
 nav a {
@@ -192,6 +196,13 @@ nav a:hover {
 .rigging-cta-section p {
     font-size: 1.1em;
     margin-bottom: 30px;
+}
+
+/* --- HOOKS & HARDWARE SECTION (NEW) --- */
+#hooks-hardware {
+    background-color: #1a1a1a; /* Darker background than showcase for contrast */
+    padding: 60px 20px;
+    border-top: 5px solid #b71c1c; /* A strong red line for visual separation */
 }
 
 /* --- FOOTER --- */
@@ -366,7 +377,7 @@ footer a {
     border: 1px solid #333; 
     background-color: #1a1a1a; 
     color: white;
-    box-sizing: border-box; /* Crucial for responsive forms */
+    box-sizing: border-box;
     border-radius: 4px;
 }
 
@@ -378,17 +389,27 @@ footer a {
 /* --- TABLET/SMALL DESKTOP (Max 992px) --- */
 @media (max-width: 992px) {
     
-    /* Navigation Stack */
+    /* Hide desktop navigation */
+    .mobile-menu {
+        display: none; /* Hide the full nav links */
+    }
+    
+    /* Header Stack (For Mobile Layout) */
     header .container {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row; /* Keep logo and hamburger side-by-side */
+        align-items: center;
+        justify-content: space-between;
     }
-    nav {
-        margin-top: 10px;
-    }
-    nav a {
-        margin-left: 15px;
-        font-size: 0.9em;
+
+    /* Show Hamburger Menu Button */
+    .hamburger-menu {
+        display: block;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.8em;
+        cursor: pointer;
+        padding: 5px 10px;
     }
     
     /* Hero */
@@ -399,6 +420,11 @@ footer a {
     /* Product Grid: Switch to 2 columns */
     .lure-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Hook Grid: Switch to 2 columns (Overrides the 3-column default) */
+    #hooks-hardware .lure-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
     }
     
     /* Product Detail Page Layout */
@@ -423,24 +449,50 @@ footer a {
     }
 }
 
+/* --- MOBILE MENU SLIDE-OUT STYLING --- */
+
+.mobile-menu {
+    /* Set up as a fixed, off-screen panel */
+    position: fixed;
+    top: 0;
+    right: -280px; /* Hidden off-screen by default */
+    width: 250px;
+    height: 100%;
+    background-color: #1a1a1a;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease-in-out; /* Smooth sliding animation */
+    padding: 60px 20px 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Class added by JavaScript to show the menu */
+.mobile-menu.active {
+    right: 0; /* Slides the menu into view */
+}
+
+.mobile-menu a {
+    color: #f0f0f0;
+    text-decoration: none;
+    padding: 10px 0;
+    width: 100%;
+    border-bottom: 1px solid #333;
+    margin-left: 0; /* Remove left margin from desktop style */
+    text-align: left;
+}
+.mobile-menu a:last-child {
+    border-bottom: none;
+}
+
+
 /* --- MOBILE (Max 600px) --- */
 @media (max-width: 600px) {
 
     /* General Padding */
     .container {
         padding: 0 15px;
-    }
-
-    /* Header Nav: Stack links vertically for space */
-    nav {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-    }
-    nav a {
-        margin: 5px 0;
-        font-size: 1em;
     }
 
     /* Hero */
@@ -458,10 +510,15 @@ footer a {
     .lure-grid {
         grid-template-columns: 1fr;
     }
+    
+    /* Hook Grid: Switch to 1 column */
+    #hooks-hardware .lure-grid {
+        grid-template-columns: 1fr !important;
+    }
 
     /* Product Card */
     .lure-card p {
-        min-height: auto; /* Remove fixed height */
+        min-height: auto;
     }
 
     /* Product Detail Thumbnails */
